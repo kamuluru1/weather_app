@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
   runApp(MyApp());
@@ -28,10 +29,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
   String _weatherCondition = '';
 
   void _fetchWeather() {
+    final random = Random();
+    int temp = 15 + random.nextInt(16);
+
+    List<String> conditions = ['Sunny', 'Cloudy', 'Raining'];
+    String condition = conditions[random.nextInt(conditions.length)];
     setState(() {
       _cityName = _cityController.text;
-      _temperature = "25°C";
-      _weatherCondition = "Sunny";
+      _temperature = "$temp°C";
+      _weatherCondition = "$condition";
     });
   }
 
