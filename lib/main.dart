@@ -22,7 +22,6 @@ class WeatherScreen extends StatefulWidget {
   _WeatherScreenState createState() => _WeatherScreenState();
 }
 
-// Model class for daily forecast details.
 class DailyForecast {
   final String day;
   final int temperature;
@@ -38,31 +37,24 @@ class DailyForecast {
 class _WeatherScreenState extends State<WeatherScreen> {
   final TextEditingController _cityController = TextEditingController();
 
-  // Variables for current weather.
   String _cityName = '';
   String _temperature = '';
   String _weatherCondition = '';
 
-  // List for 7-day forecast.
   List<DailyForecast> _forecast = [];
 
-  // Random number generator.
   final Random _random = Random();
 
-  // List of possible weather conditions.
   final List<String> _conditions = ["Sunny", "Cloudy", "Rainy"];
 
-  // Generate a random temperature between 15 and 30.
   int _getRandomTemperature() => 15 + _random.nextInt(16);
 
-  // Select a random weather condition.
   String _getRandomCondition() => _conditions[_random.nextInt(_conditions.length)];
 
-  // Generate random forecast for 7 days.
   void _fetchForecast() {
     List<DailyForecast> forecast = [];
     for (int i = 0; i < 7; i++) {
-      // For simplicity, we label the days as Day 1, Day 2, etc.
+
       String dayLabel = "Day ${i + 1}";
       forecast.add(DailyForecast(
         day: dayLabel,
@@ -75,7 +67,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
     });
   }
 
-  // Generate current weather data.
+
   void _fetchWeather() {
     setState(() {
       _cityName = _cityController.text;
@@ -92,13 +84,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
         title: Text("Weather App"),
       ),
       body: SingleChildScrollView(
-        // Using SingleChildScrollView to allow scrolling when forecast is displayed.
+
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Input field for city name.
+
               TextField(
                 controller: _cityController,
                 decoration: InputDecoration(
@@ -107,13 +99,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 ),
               ),
               SizedBox(height: 10),
-              // Button to fetch current weather data.
+
               ElevatedButton(
                 onPressed: _fetchWeather,
                 child: Text("Fetch Weather"),
               ),
               SizedBox(height: 20),
-              // Displaying current weather data.
+
               Text(
                 "City: $_cityName",
                 style: TextStyle(fontSize: 18),
@@ -127,22 +119,22 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 style: TextStyle(fontSize: 18),
               ),
               Divider(height: 40),
-              // Button to fetch 7-day forecast.
+
               ElevatedButton(
                 onPressed: _fetchForecast,
                 child: Text("Fetch 7-Day Forecast"),
               ),
               SizedBox(height: 20),
-              // UI section for the 7-day forecast.
+
               Text(
                 "7-Day Forecast:",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
-              // Display the forecast details.
+
               ListView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(), // Let the outer scroll view handle scrolling.
+                physics: NeverScrollableScrollPhysics(),
                 itemCount: _forecast.length,
                 itemBuilder: (context, index) {
                   DailyForecast dayForecast = _forecast[index];
@@ -150,7 +142,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     margin: EdgeInsets.symmetric(vertical: 5),
                     child: ListTile(
                       leading: CircleAvatar(
-                        child: Text(dayForecast.day.split(' ').last), // Displays the day number.
+                        child: Text(dayForecast.day.split(' ').last),
                       ),
                       title: Text(dayForecast.day),
                       subtitle: Text("Condition: ${dayForecast.condition}"),
