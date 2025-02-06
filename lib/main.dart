@@ -37,7 +37,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
     setState(() {
       _cityName = _cityController.text;
       _temperature = "$temp°C";
-      _weatherCondition = "$condition";
+      _weatherCondition = "$condition"; //This function was already in the last commit
     });
   }
 
